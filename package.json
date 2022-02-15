@@ -1,0 +1,26 @@
+{
+  "name": "babel-plugin-build-server-side",
+  "version": "0.0.1",
+  "description": "Babel plugin for separate server-side code",
+  "author": "Alexey Politov",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "scripts": {
+    "clean": "shx rm -rf dist",
+    "build": "npm run clean && rollup -c --environment NODE_ENV:production"
+  },
+  "keywords": [
+    "babel-plugin"
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.17.2",
+    "@babel/types": "^7.17.0",
+    "@rollup/plugin-typescript": "^8.3.0",
+    "@types/babel__helper-plugin-utils": "^7.10.0",
+    "rollup": "^2.67.2",
+    "shx": "^0.3.4"
+  },
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.16.7"
+  }
+}

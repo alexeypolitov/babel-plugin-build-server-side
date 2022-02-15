@@ -34,26 +34,43 @@ export default declare((api) => {
         enter(path, state) {
           // console.log("FunctionDeclaration...enter");
           if (path.node.id.name === "getServerSide") {
-            // console.log(path.node.body);
-            path.node.body.body.forEach((node) => {
-              // console.log(node);
-              if (node.type === "ReturnStatement") {
-                if (node.argument.type === "Identifier") {
-                  // TODO: Add support
-                } else if (node.argument.type === "StringLiteral") {
-                  // TODO: Add support
-                } else if (node.argument.type === "CallExpression") {
-                  console.log("node...");
-                  console.log(node);
-                  console.log("node.argument...");
-                  console.log(node.argument);
-                } else {
-                  throw new Error(
-                    `Unexpected node.type: ${node.argument.type}`
-                  );
-                }
+            const { returnType } = path.node;
+            if (!returnType) {
+              throw new Error("Type of getServerSide must be annotate");
+            }
+
+            if (returnType.type === "TSTypeAnnotation") {
+              const { typeAnnotation } = returnType;
+              if (typeAnnotation.type === "TSTypeReference") {
+                console.log("typeAnnotation.typeParameters...");
+                console.log(typeAnnotation.typeParameters.params);
               }
-            });
+            } else {
+              throw new Error(
+                `Unexpected annotation type ${path.node.returnType.type}`
+              );
+            }
+
+            // // console.log(path.node.body);
+            // path.node.body.body.forEach((node) => {
+            //   // console.log(node);
+            //   if (node.type === "ReturnStatement") {
+            //     if (node.argument.type === "Identifier") {
+            //       // TODO: Add support
+            //     } else if (node.argument.type === "StringLiteral") {
+            //       // TODO: Add support
+            //     } else if (node.argument.type === "CallExpression") {
+            //       console.log("node...");
+            //       console.log(node);
+            //       console.log("node.argument...");
+            //       console.log(node.argument);
+            //     } else {
+            //       throw new Error(
+            //         `Unexpected node.type: ${node.argument.type}`
+            //       );
+            //     }
+            //   }
+            // });
           }
         },
         exit(path, state) {

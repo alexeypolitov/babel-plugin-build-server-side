@@ -6,7 +6,7 @@
   "license": "ISC",
   "main": "lib/index.js",
   "scripts": {
-    "clean": "shx rm -rf dist",
+    "clean": "shx rm -rf lib",
     "build": "npm run clean && rollup -c --environment NODE_ENV:production"
   },
   "keywords": [
